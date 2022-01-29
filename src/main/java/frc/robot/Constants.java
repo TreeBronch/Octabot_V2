@@ -56,10 +56,8 @@ public class Constants
         public static final double DEFAULT_MAX_VELOCITY_PERCENTAGE = 0.6;
         public static final double DEFAULT_MAX_TURNING_SPEED = 0.5d;
         public static final double VELOCITY_SLOWDOWN_MODIFIER = 0.25d;
-        public static final int LEFT_LEAD_TALON_CAN_ID = 0;
-        public static final int LEFT_FOLLOWER_TALON_CAN_ID = 1;
-        public static final int RIGHT_LEAD_TALON_CAN_ID = 10;
-        public static final int RIGHT_FOLLOWER_TALON_CAN_ID = 3;
+        public static final int LEFT_LEAD_TALON_CAN_ID = 10;
+        public static final int RIGHT_LEAD_TALON_CAN_ID = 1;
         public static final int PID_SLOT_ID = 0;
         public static final int PID_CONFIG_TIMEOUT_MS = 10;
         public static final int CONFIG_FEEDBACKSENSOR_TIMEOUT_MS = 4000;
@@ -74,7 +72,7 @@ public class Constants
         public static final int ENCODER_EDGES_PER_STEP =  1; 
         public static final int ENCODER_UNITS_PER_REVOLUTION = ENCODER_COUNTS_PER_REVOLUTION; // Edges per Rotation
         public static final double TRACK_WIDTH_FEET = 13.5d/12.0d; //Track width is 27.5 inches
-        public static final boolean USE_NAVX_HEADING = true;
+        public static final boolean USE_NAVX_HEADING = false;
     }
 
     public static final class SmoothControlConstants

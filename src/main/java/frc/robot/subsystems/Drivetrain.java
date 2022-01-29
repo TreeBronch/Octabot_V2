@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
+import edu.wpi.first.wpilibj.I2C.Port;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.classes.Kinematics;
@@ -78,6 +79,11 @@ public class Drivetrain extends SubsystemBase {
 
         rightTalonLead.configNeutralDeadband(MOTOR_NEUTRAL_DEADBAND);
         leftTalonLead.configNeutralDeadband(MOTOR_NEUTRAL_DEADBAND);
+        
+        navX = new AHRS(Port.kMXP);
+        setupGyro(navX, 0.0d);
+        zeroDriveTrainEncoders();
+        m_kinematics = kinematics;
 
     }
 
