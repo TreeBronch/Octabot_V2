@@ -25,6 +25,7 @@ public class Kinematics
     double deltaX = 0.0d;
     double deltaY = 0.0d;
     double currentHeading = 0.0d;
+    
 
     //Calculate distance traveled
     deltaLeft = leftEncoderPostion - m_oldLeftDistanceTraveled;
@@ -58,6 +59,7 @@ public class Kinematics
     double deltaX = 0.0d;
     double deltaY = 0.0d;
     double deltaPsi = 0.0d;
+    double newPsi = 0.0d;
 
     //Calculate distance traveled
     deltaLeft = leftEncoderPostion - m_oldLeftDistanceTraveled;
@@ -80,9 +82,9 @@ public class Kinematics
 
     //Limit psi between Pi and -Pi
     deltaPsi = limitRadians(deltaPsi);
-
+    newPsi = limitRadians(m_currentPose.getHeadingRadians() + deltaPsi);
     //Calculate new attitude angle in radians
-    m_currentPose.setHeadingRadians(m_currentPose.getHeadingRadians() + deltaPsi);
+    m_currentPose.setHeadingRadians(newPsi);
   }
 
   public Position2D getPose()
