@@ -79,8 +79,8 @@ public class AutonomousCommand extends CommandBase {
     public void initialize() {
         switch (m_startPosition) {
             case LEFT:
-                m_targetPath.add(new TargetPosition2D(0, 0, Math.toRadians(90), 1.0d));
-                m_targetPath.add(new TargetPosition2D(0, 5, Math.toRadians(0), 0.0d));
+                m_targetPath.add(new TargetPosition2D(0, 0, Math.toRadians(0), 1.0d));
+                m_targetPath.add(new TargetPosition2D(5, 0, Math.toRadians(0), 0.0d));
 
                 m_stateList.add(AutoStates.DRIVE_TO_TARGET);
                 break;
