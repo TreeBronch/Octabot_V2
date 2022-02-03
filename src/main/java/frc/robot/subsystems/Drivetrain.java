@@ -56,10 +56,10 @@ public class Drivetrain extends SubsystemBase {
         rightTalonLead.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, CONFIG_FEEDBACKSENSOR_TIMEOUT_MS);
 
 
-        leftTalonLead.setInverted(true);
-        leftTalonLead.setSensorPhase(true);
-        rightTalonLead.setInverted(false);
-        rightTalonLead.setSensorPhase(false);
+        leftTalonLead.setInverted(false);
+        leftTalonLead.setSensorPhase(false);
+        rightTalonLead.setInverted(true);
+        rightTalonLead.setSensorPhase(true);
 
         //Configure PID 
         leftTalonLead.config_kF(PID_SLOT_ID, KF, PID_CONFIG_TIMEOUT_MS);
