@@ -12,7 +12,7 @@ public class Wait extends CommandBase {
 
     @Override
     public void initialize() {
-        m_waitTime*=1000;
+        m_waitTime *= 1000;
         m_startTime = System.currentTimeMillis();
     }
 
@@ -22,7 +22,7 @@ public class Wait extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return System.currentTimeMillis() - m_startTime > m_waitTime;
+        return ((System.currentTimeMillis() - m_startTime) >= m_waitTime);
     }
 
     @Override
