@@ -54,9 +54,9 @@ public class DriveTo extends CommandBase {
         
         if(true == m_inReverse){
             // Calculate vR in feet per second
-            vR = m_maxVelocity - (TRACK_WIDTH_FEET / 2) * omegaDesired;
+            vR = -m_maxVelocity - (TRACK_WIDTH_FEET / 2) * omegaDesired;
             // Calculate vL in feet per second
-            vL = m_maxVelocity + (TRACK_WIDTH_FEET / 2) * omegaDesired;
+            vL = - m_maxVelocity + (TRACK_WIDTH_FEET / 2) * omegaDesired;
         }
         else{
             // Calculate vR in feet per second
