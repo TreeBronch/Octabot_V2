@@ -47,10 +47,10 @@ public class Constants
         public static final double TALON_FULL_OUTPUT_SETTING = 1023;
         public static final double KF = 0.02d;
         public static final double KP = 0.05d;
-        public static final double KI = 0.001d;
+        public static final double KI = 0.0001d;
         public static final double KD = 0.0d;
         
-        public static final double CLOSED_LOOP_RAMP = 2.0d;
+        public static final double CLOSED_LOOP_RAMP = 1;
         public static final double MAX_VELOCITY = 21549;
         
         public static final double DEFAULT_MAX_VELOCITY_PERCENTAGE = 0.6;
