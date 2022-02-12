@@ -50,7 +50,7 @@ public class Constants
         public static final double KI = 0.001d;
         public static final double KD = 0.0d;
         
-        public static final double CLOSED_LOOP_RAMP = 0.5;
+        public static final double CLOSED_LOOP_RAMP = 2.0d;
         public static final double MAX_VELOCITY = 21549;
         
         public static final double DEFAULT_MAX_VELOCITY_PERCENTAGE = 0.6;
