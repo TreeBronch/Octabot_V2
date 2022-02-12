@@ -3,9 +3,9 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.classes.Kinematics;
+import frc.robot.classes.Position2D;
 import frc.robot.classes.SPIKE293Utils;
 import frc.robot.classes.SmoothControl;
-import frc.robot.classes.TargetPosition2D;
 import frc.robot.subsystems.Drivetrain;
 
 import static frc.robot.Constants.DrivetrainConstants.*;
@@ -15,13 +15,17 @@ public class DriveTo extends CommandBase {
 
     private Drivetrain m_drivetrain;
     private Kinematics m_kinematics;
-    private TargetPosition2D m_targetPose;
+    private Position2D m_targetPose;
     private SmoothControl m_smoothControl;
+    private double m_maxVelocity;
+    private boolean m_inReverse = false;
     private boolean m_isDone = false;
 
-    public DriveTo(TargetPosition2D targetPose, Kinematics kinematics, Drivetrain drivetrain) {
+    public DriveTo(Position2D targetPose, double maxVelocity, boolean inReverse, Kinematics kinematics, Drivetrain drivetrain) {
         addRequirements(drivetrain);
         m_targetPose = targetPose;
+        m_maxVelocity = maxVelocity;
+        m_inReverse  = inReverse;
         m_kinematics = kinematics;
         m_drivetrain = drivetrain;
     }
@@ -29,10 +33,8 @@ public class DriveTo extends CommandBase {
     @Override
     public void initialize() {
         // Content to be run when initializing the command
-
         // Initialize smooth control
         m_smoothControl = new SmoothControl();
-        m_smoothControl.reset();
     }
 
     @Override
@@ -41,24 +43,32 @@ public class DriveTo extends CommandBase {
         double vL = 0.0;
 
         // Start auto nav drive routine
-        // Compute turn rate and update range
-        m_smoothControl.computeTurnRate(m_kinematics.getPose(), m_targetPose, m_drivetrain.getRobotVelocity());
+        if(true == m_inReverse)
+        {   
+            //We're in reverse, heading needs to be reversed for smooth control algorithm
+            m_targetPose.setHeadingRadians(m_targetPose.getHeadingRadians() + Math.PI);
+        }
 
-        try {
+        // Compute turn rate in radians and update range
+        double omegaDesired = m_smoothControl.computeTurnRate(m_kinematics.getPose(), m_targetPose, m_maxVelocity);
+        
+        if(true == m_inReverse){
             // Calculate vR in feet per second
-            vR = m_targetPose.getVelocity() + (TRACK_WIDTH_FEET / 2) * m_smoothControl.getTurnRateRadians();
+            vR = -m_maxVelocity - (TRACK_WIDTH_FEET / 2) * omegaDesired;
             // Calculate vL in feet per second
-            vL = m_targetPose.getVelocity() - (TRACK_WIDTH_FEET / 2) * m_smoothControl.getTurnRateRadians();
-        } catch (Exception e) {
-            System.out.println(
-                    "AutonomousCommand ERROR: Failed to retrieve pose velocity " + (m_targetPose.getVelocity()));
-            m_isDone = true;
+            vL = - m_maxVelocity + (TRACK_WIDTH_FEET / 2) * omegaDesired;
+        }
+        else{
+            // Calculate vR in feet per second
+            vR = m_maxVelocity + (TRACK_WIDTH_FEET / 2) * omegaDesired;
+            // Calculate vL in feet per second
+            vL = m_maxVelocity - (TRACK_WIDTH_FEET / 2) * omegaDesired;
         }
 
         SmartDashboard.putNumber("Desired Left Velocity (ft/s)", vL);
         SmartDashboard.putNumber("Desired Right Velocity (ft/s)", vR);
         SmartDashboard.putNumber("Auto Range", m_smoothControl.getRange());
-        SmartDashboard.putNumber("Auto Omega Desired (Degrees)", m_smoothControl.getTurnRateDegrees());
+        SmartDashboard.putNumber("Auto Omega Desired (Degrees)", Math.toDegrees(omegaDesired));
         SmartDashboard.putString("Next Target",
                 m_targetPose.getX() + ", " + m_targetPose.getY() + ", " + m_targetPose.getHeadingDegrees());
 
@@ -75,7 +85,6 @@ public class DriveTo extends CommandBase {
             // run
             m_isDone = true;
         }
-
     }
 
     @Override
