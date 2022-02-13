@@ -86,10 +86,10 @@ public class RobotContainer {
       m_AutoCommand = new SequentialAutoCommand(m_drivetrain, m_kinematics, StartPositions.LEFT);
     }
     else if(DriverStation.getLocation() == 2){
-      m_AutoCommand = new SequentialAutoCommand(m_drivetrain, m_kinematics, StartPositions.RIGHT);
+      m_AutoCommand = new SequentialAutoCommand(m_drivetrain, m_kinematics, StartPositions.MIDDLE);
     }
     else if(DriverStation.getLocation() == 3){
-      m_AutoCommand = new SequentialAutoCommand(m_drivetrain, m_kinematics, StartPositions.MIDDLE);
+      m_AutoCommand = new SequentialAutoCommand(m_drivetrain, m_kinematics, StartPositions.RIGHT);
     }
     else{
       System.out.println("Field location error");
@@ -125,7 +125,19 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // The selected command will be run in autonomous
-    return m_AutoCommand;
+    if(DriverStation.getLocation() == 1){
+      return new SequentialAutoCommand(m_drivetrain, m_kinematics, StartPositions.LEFT);
+    }
+    else if(DriverStation.getLocation() == 2){
+      return new SequentialAutoCommand(m_drivetrain, m_kinematics, StartPositions.MIDDLE);
+    }
+    else if(DriverStation.getLocation() == 3){
+      return new SequentialAutoCommand(m_drivetrain, m_kinematics, StartPositions.RIGHT);
+    }
+    else{
+      System.out.println("Field location error");
+    }
+    return new SequentialAutoCommand(m_drivetrain, m_kinematics, StartPositions.LEFT);
   }
 
   public Command getTeleopCommand() {
