@@ -64,7 +64,6 @@ public class LocateTarget extends CommandBase
     @Override
     public void end(boolean interrupted) 
     {
-    	m_targeting.controlLight(false);
     	m_targeting.resetPID();
     }
 
