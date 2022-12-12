@@ -64,18 +64,17 @@ public class RobotContainer {
 
     // Setting default command for drivetrain as VelocityDrive
     m_drivetrain.setDefaultCommand(new ArcadeDrive(m_drivetrain, m_xboxController));
-
-    if(DriverStation.getLocation() == 1){
-      m_AutoCommand = new SequentialAutoCommand(m_drivetrain, m_kinematics, StartPositions.LEFT);
-    }
-    else if(DriverStation.getLocation() == 2){
-      m_AutoCommand = new SequentialAutoCommand(m_drivetrain, m_kinematics, StartPositions.MIDDLE);
-    }
-    else if(DriverStation.getLocation() == 3){
-      m_AutoCommand = new SequentialAutoCommand(m_drivetrain, m_kinematics, StartPositions.RIGHT);
-    }
-    else{
-      System.out.println("Field location error");
+    
+    switch (DriverSTation.getLocation()) {
+      case 1:
+        m_AutoCommand = new SequentialAutoCommand(m_drivetrain, m_kinematics, StartPositions.LEFT);
+        break;
+      case 2:
+        m_AutoCommand = new SequentialAutoCommand(m_drivetrain, m_kinematics, StartPositions.MIDDLE);    
+        break;
+      case 3:
+        m_AutoCommand = new SequentialAutoCommand(m_drivetrain, m_kinematics, StartPositions.RIGHT);
+        break;
     }
   }
   
