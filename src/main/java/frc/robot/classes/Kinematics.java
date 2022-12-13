@@ -81,14 +81,8 @@ public class Kinematics {
 
   private double limitRadians(double radians) {
     double retval = radians;
-
-    while (retval > Math.PI) {
-      retval -= 2 * Math.PI;
-    }
-
-    while (retval < -Math.PI) {
-      retval += 2 * Math.PI;
-    }
+    
+    retval = retval % Math.PI
 
     return retval;
   }
@@ -107,8 +101,7 @@ public class Kinematics {
     double distanceFromPose = distanceFromPose(checkpoint);
     if (distanceFromPose <= threshold) {
       return true;
-    } else {
-      return false;
     }
+    return false;
   }
 }
