@@ -16,7 +16,7 @@ public class SequentialAutoCommand extends SequentialCommandGroup {
 
         m_drivetrain = drivetrain;
         m_kinematics = kinematics;
-        m_startPosition = startPosition;
+        m_startPosition = startPosition;    
         SmartDashboard.putBoolean("AutoDone", false);
 
         switch (m_startPosition) {
